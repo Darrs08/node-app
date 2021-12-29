@@ -9,6 +9,12 @@ pipeline {
                 sh "docker build . -t kammana/nodeapp:${DOCKER_TAG}"
             }
         }
+        stage('DokerHub Push') {
+            withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
+                sh "docker login -u darrs08 -p ${dockerHubPwd}"
+                sh "docker push kammana/nodeapp:${DOCKER_TAG}"
+            }          
+        }
     }
 }
 
