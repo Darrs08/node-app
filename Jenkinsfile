@@ -6,7 +6,7 @@ pipeline {
     stages{
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t kammana/nodeapp:${DOCKERTAG}"
+                sh "docker build -t kammana/nodeapp:${DOCKER_TAG}"
             }
         }
     }
