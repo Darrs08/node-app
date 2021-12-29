@@ -25,7 +25,7 @@ pipeline {
                     try{
                         sh "kubectl apply -f ."
                     }
-                    catch{
+                    catch(error){
                         sh "kubectl create -f ."
                     }
                 }
