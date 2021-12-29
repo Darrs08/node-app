@@ -17,6 +17,20 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to K8s') {
+            steps{
+                sh "chmod -x changeTag.sh"
+                sh "./changeTag.sh ${DOCKER_TAG}"
+                script {
+                    try{
+                        sh "kubectl apply -f ."
+                    }
+                    catch{
+                        sh "kubectl create -f ."
+                    }
+                }
+            }
+        }
     }
 }
 
