@@ -23,10 +23,10 @@ pipeline {
                 sh "./changeTag.sh ${DOCKER_TAG}"
                 script {
                     try{
-                        sh "kubectl apply -f ."
+                        sh "kubectl apply -f pods.yml"
                     }
                     catch(error){
-                        sh "kubectl create -f ."
+                        sh "kubectl create -f pods.yml"
                     }
                 }
             }
