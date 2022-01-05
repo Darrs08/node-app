@@ -17,20 +17,13 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to K8s') {
-            steps{
-                sh "chmod -x changeTag.sh"
-                sh "./changeTag.sh ${DOCKER_TAG}"
-                script {
-                    try{
-                        sh "kubectl apply -f pods.yml"
-                    }
-                    catch(error){
-                        sh "kubectl create -f pods.yml"
-                    }
-                }
-            }
-        }
+       stage('Deploying App to Kubernetes') {
+           steps {
+               script {
+                   kubernetesDeploy(configs: "pods.yml", kubeconfigId: "kubernetes")
+               }
+           }
+      }
     }
 }
 
